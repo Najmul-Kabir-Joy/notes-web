@@ -11,5 +11,6 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  plugins: [require('@tailwindcss/forms')],
 };
