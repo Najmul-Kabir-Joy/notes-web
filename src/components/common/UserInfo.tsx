@@ -6,7 +6,10 @@ const UserInfo = ({ name }: { name: string }) => {
       <p className="text-xs text-gray-300">
         Logged in as: <br /> <span className="text-sm mt-2 text-gray-400 font-bold">{name}</span>
       </p>
-      <p className="text-gray-400 hover:underline  text-center  text-sm hover:text-red-400 hover:font-bold transition-all duration-300">
+      <p
+        className="text-gray-400 hover:underline  text-center  text-sm hover:text-red-400 hover:font-bold transition-all duration-300"
+        onClick={() => (window.location.href = '/api/auth/logout')}
+      >
         Log out
       </p>
     </div>

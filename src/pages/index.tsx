@@ -1,10 +1,12 @@
 import LoggedInEle from '@/components/common/LoggedInEle';
 import NotLoggedIn from '@/components/common/NotLoggedIn';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Head from 'next/head';
 import React from 'react';
 
 export default function Home() {
-  const isIn = !true;
+  const { user } = useUser();
   return (
     <React.Fragment>
       <Head>
@@ -14,7 +16,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="py-2 mt-16 w-full min-h-[calc(100vh-140px)] bg-blue-50">
-        {isIn ? <LoggedInEle /> : <NotLoggedIn />}
+        {user?.email ? <LoggedInEle /> : <NotLoggedIn />}
       </main>
     </React.Fragment>
   );
