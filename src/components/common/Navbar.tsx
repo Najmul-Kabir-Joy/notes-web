@@ -5,7 +5,7 @@ import SignInButton from './SignInButton';
 
 const Navbar = ({ isLoggedIn = true }: { isLoggedIn?: boolean }) => {
   return (
-    <nav className="w-full bg-gray-200 flex justify-between p-4 fixed top-0">
+    <nav className="w-full bg-gray-200 flex justify-between p-4 fixed top-0 z-10">
       <LogoText />
       {isLoggedIn ? <Avatar name="Md. Najmul Kabir" /> : <SignInButton />}
     </nav>

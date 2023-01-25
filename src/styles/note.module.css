@@ -1,0 +1,13 @@
+.ribbon {
+  position: absolute;
+  top: 28.5px;
+  left: -18px;
+  width: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 5px 20px 20px 20px; */
+  clip-path: polygon(0 0, 100% 0, 100% 76%, 94% 100%, 94% 77%, 0 74%, 10% 40%);
+  box-shadow: 0 -10px 0 #0005;
+  transform: rotate(-90deg);
+}
