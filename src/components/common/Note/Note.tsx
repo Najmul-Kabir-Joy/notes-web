@@ -19,6 +19,7 @@ const Note = ({ data }: NoteInterface) => {
     if (element) {
       const rotation = (Math.random() - 0.5) * 20;
       element.style.transform = `rotate(${rotation}deg)`;
+      element.style.backgroundColor = tagColorSet[tag].note;
     }
   };
 
@@ -28,16 +29,11 @@ const Note = ({ data }: NoteInterface) => {
     }
   }, [noteRef]);
 
-  const getColors = () => {
-    return tagColorSet[tag];
-  };
-
-  const { ribbon: ribbonColor, note: noteColor } = getColors();
   return (
     <>
       <div
         ref={noteRef}
-        className={`w-[300px] h-[300px] relative px-2 bg-${noteColor}-400 rounded-xl shadow-xl hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 cursor-pointer group`}
+        className={`w-[300px] h-[300px] relative px-2 rounded-xl shadow-xl hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 cursor-pointer group`}
         onMouseLeave={() => setShowDrop(false)}
       >
         <NoteTitle title={title} />
@@ -48,7 +44,7 @@ const Note = ({ data }: NoteInterface) => {
           <ElipsisIcon />
           {showDrop && <NoteDropDown handleEdit={() => setOpen(!open)} />}
         </span>
-        <Ribbon tagName={tag} color={ribbonColor} />
+        <Ribbon tagName={tag} />
         <NoteBody note={note} />
         <NoteFooter />
       </div>

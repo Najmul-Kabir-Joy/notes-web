@@ -4,19 +4,19 @@ export const tagOptions: TagOptions = ['Casual', 'Urgent', 'ToDo', 'Ongoing'];
 
 export const tagColorSet: TagColorSet = {
   casual: {
-    note: 'yellow',
-    ribbon: 'amber',
+    note: '#facc15',
+    ribbon: '#fbbf24',
   },
   urgent: {
-    note: 'red',
-    ribbon: 'rose',
+    note: '#f87171',
+    ribbon: '#fb7185',
   },
   todo: {
-    note: 'purple',
-    ribbon: 'violet',
+    note: '#c084fc',
+    ribbon: '#a78bfa',
   },
   ongoing: {
-    note: 'emerald',
-    ribbon: 'green',
+    note: '#34d399',
+    ribbon: '#4ade80',
   },
 };
