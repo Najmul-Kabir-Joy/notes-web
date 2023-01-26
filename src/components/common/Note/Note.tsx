@@ -9,6 +9,7 @@ import ElipsisIcon from '@/assets/icons/ElipsisIcon';
 import NoteDropDown from './NoteDropDown';
 import { tagColorSet } from '@/utills/utills';
 import { NotesData } from '@/types/types';
+import HistoryPopup from './Popup/HistoryPopup';
 
 interface AppProps {
   item: NotesData;
@@ -19,6 +20,7 @@ const Note = ({ item }: AppProps) => {
 
   const [open, setOpen] = useState(false);
   const [showDrop, setShowDrop] = useState(false);
+  const [openHistory, setOpenHistory] = useState(false);
 
   const noteRef = useRef(null);
 
@@ -48,7 +50,13 @@ const Note = ({ item }: AppProps) => {
           onClick={() => setShowDrop(!showDrop)}
         >
           <ElipsisIcon />
-          {showDrop && <NoteDropDown handleEdit={() => setOpen(!open)} id={id} />}
+          {showDrop && (
+            <NoteDropDown
+              handleEdit={() => setOpen(!open)}
+              id={id}
+              handleHistoryOpen={() => setOpenHistory(!openHistory)}
+            />
+          )}
         </span>
         <Ribbon tagName={tag} />
         <NoteBody note={note} />
@@ -60,6 +68,11 @@ const Note = ({ item }: AppProps) => {
         type="update"
         item={{ title: item.title, tag: item.tag, note: item.note }}
         id={item._id}
+      />
+      <HistoryPopup
+        isOpen={openHistory}
+        onClose={() => setOpenHistory(!openHistory)}
+        data={item.editHistory}
       />
     </>
   );

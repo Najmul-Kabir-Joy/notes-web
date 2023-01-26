@@ -3,7 +3,15 @@ import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { ToastMessage } from '../Toaster/Toastify';
 
-const NoteDropDown = ({ handleEdit, id }: { handleEdit: () => void; id: string }) => {
+const NoteDropDown = ({
+  handleEdit,
+  id,
+  handleHistoryOpen,
+}: {
+  handleEdit: () => void;
+  id: string;
+  handleHistoryOpen: () => void;
+}) => {
   const buttonStyle = 'text-gray-700 block w-full px-4 py-2 text-left text-sm hover:bg-gray-200';
   const queryClient = useQueryClient();
 
@@ -42,7 +50,7 @@ const NoteDropDown = ({ handleEdit, id }: { handleEdit: () => void; id: string }
         <button className={buttonStyle} tabIndex={-1} onClick={handleEdit}>
           Edit
         </button>
-        <button className={buttonStyle} tabIndex={-1}>
+        <button className={buttonStyle} tabIndex={-1} onClick={handleHistoryOpen}>
           History
         </button>
         <button className={buttonStyle} tabIndex={-1} onClick={handleDelete}>

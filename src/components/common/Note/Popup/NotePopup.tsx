@@ -41,7 +41,7 @@ interface Item {
   tag: string;
   note: string;
 }
-interface AppProps {
+interface CompProps {
   isOpen: boolean;
   onClose: () => void;
   type: 'insert' | 'update';
@@ -49,7 +49,7 @@ interface AppProps {
   id?: string;
 }
 Modal.setAppElement('#__next');
-const NotePopup = ({ isOpen, onClose, type, item, id }: AppProps) => {
+const NotePopup = ({ isOpen, onClose, type, item, id }: CompProps) => {
   const { user } = useUser();
   const queryClient = useQueryClient();
   const [inputs, setInputs] = useState(item);
