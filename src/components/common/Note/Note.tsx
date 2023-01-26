@@ -75,6 +75,7 @@ const Note = ({ item }: AppProps) => {
         isOpen={openHistory}
         onClose={() => setOpenHistory(!openHistory)}
         data={item.editHistory}
+        creationTime={item.createdAt}
       />
     </>
   );

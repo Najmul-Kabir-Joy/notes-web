@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import Modal, { Styles } from 'react-modal';
 import HistoryCard from '../../HistoryCard';
@@ -31,10 +32,11 @@ interface CompProps {
   isOpen: boolean;
   onClose: () => void;
   data: Date[];
+  creationTime: Date;
 }
 
 Modal.setAppElement('#__next');
-const HistoryPopup = ({ isOpen, onClose, data }: CompProps) => {
+const HistoryPopup = ({ isOpen, onClose, data, creationTime }: CompProps) => {
   const dataLen = data.length;
   return (
     <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles}>
@@ -50,6 +52,10 @@ const HistoryPopup = ({ isOpen, onClose, data }: CompProps) => {
           ))}
         </div>
       )}
+      <div className="px-2 bg-gray-50 mb-2 hover:bg-gray-100 cursor-pointer">
+        <p className="text-sm">Created the note on</p>
+        <time className="italic">{moment(creationTime).format('MM/DD/YYYY h:mm A')}</time>
+      </div>
     </Modal>
   );
 };
