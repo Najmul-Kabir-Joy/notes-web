@@ -25,7 +25,7 @@ const LoggedInEle = ({ user }: { user: UserProfile }) => {
   return (
     <React.Fragment>
       <SearchBar setSearchKey={setSearchKey} setSortKey={setSortKey} />
-      <section className="mt-2 px-8 py-4 grid grid-cols-5 gap-x-10 gap-y-20 pb-28">
+      <section className="mt-2 px-8 py-4 grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-items-center gap-x-10 gap-y-20 pb-28">
         {isLoading
           ? // eslint-disable-next-line @typescript-eslint/no-unused-vars
             Array.from({ length: 5 }).map((_, index: number) => <CardSkeleton key={index} />)

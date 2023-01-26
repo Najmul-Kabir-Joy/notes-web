@@ -22,8 +22,8 @@ const customStyles: Styles = {
     zIndex: '50',
   },
   content: {
-    height: '90%',
     width: '80%',
+    height: '80%',
     top: '50%',
     left: '50%',
     right: 'auto',
@@ -94,19 +94,26 @@ const NotePopup = ({ isOpen, onClose, type, item, id }: CompProps) => {
   };
   return (
     <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles}>
-      <CloseButton onClose={onClose} />
-      <form className="w-full p-10">
-        <TitleInput inputs={inputs} setInputs={setInputs} required={true} />
-        <div className="mt-5">
-          <Title text="Select a tag" />
-          <NoteSelect inputs={inputs} setInputs={setInputs} />
-        </div>
-        <div className="mt-5 w-full">
-          <Title text="Your note" />
-          <MyEditor editorRef={editorRef} inputs={inputs} setInputs={setInputs} />
-        </div>
-        <PopupFooter submitHandler={handleSubmit} onClose={onClose} />
-      </form>
+      <div className="h-10">
+        <p className="text-center text-xl uppercase font-bold font-[cursive]">
+          {type === 'insert' ? 'New Note' : 'Edit Note'}
+        </p>
+        <CloseButton onClose={onClose} />
+      </div>
+      <div className="h-[62vh] overflow-y-scroll">
+        <form className="w-full md:p-10 p-0">
+          <TitleInput inputs={inputs} setInputs={setInputs} required={true} />
+          <div className="mt-5">
+            <Title text="Select a tag" />
+            <NoteSelect inputs={inputs} setInputs={setInputs} />
+          </div>
+          <div className="mt-5 w-full">
+            <Title text="Your note" />
+            <MyEditor editorRef={editorRef} inputs={inputs} setInputs={setInputs} />
+          </div>
+        </form>
+      </div>
+      <PopupFooter submitHandler={handleSubmit} onClose={onClose} />
     </Modal>
   );
 };
