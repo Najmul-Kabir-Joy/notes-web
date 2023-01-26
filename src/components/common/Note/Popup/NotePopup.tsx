@@ -1,6 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
+import { newNote, updateNote } from '@/apicalls/apicall';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import React, { useRef, useState } from 'react';
 import Modal, { Styles } from 'react-modal';
+import { useMutation, useQueryClient } from 'react-query';
+import { ToastMessage } from '../../Toaster/Toastify';
 import MyEditor from '../Editor/MyEditor';
 import CloseButton from './CloseButton';
 import NoteSelect from './NoteSelect';
@@ -19,7 +22,7 @@ const customStyles: Styles = {
     zIndex: '50',
   },
   content: {
-    height: '80%',
+    height: '90%',
     width: '80%',
     top: '50%',
     left: '50%',
@@ -32,36 +35,78 @@ const customStyles: Styles = {
     zIndex: '50',
   },
 };
+
+interface Item {
+  title: string;
+  tag: string;
+  note: string;
+}
+interface AppProps {
+  isOpen: boolean;
+  onClose: () => void;
+  type: 'insert' | 'update';
+  item: Item;
+  id?: string;
+}
 Modal.setAppElement('#__next');
-const NotePopup = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-  const [inputs, setInputs] = useState({
-    title: '',
-    note: '',
-    tag: '',
-  });
+const NotePopup = ({ isOpen, onClose, type, item, id }: AppProps) => {
+  const { user } = useUser();
+  const queryClient = useQueryClient();
+  const [inputs, setInputs] = useState(item);
   const editorRef = useRef({});
-  const log = () => {
-    if (editorRef.current) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore:next-line
-      console.log(editorRef.current.getContent());
+
+  const mutation = useMutation(
+    async (data: { title: string; note: string; tag: string; email: string }) => {
+      if (type === 'insert') {
+        return newNote(data);
+      }
+      if (type === 'update') {
+        return updateNote(data, id as string);
+      }
+    },
+    {
+      onSuccess: (data) => {
+        if (type === 'insert') {
+          if (data.result._id) {
+            ToastMessage('success', 'ADDED');
+            onClose();
+            queryClient.invalidateQueries();
+          }
+        }
+        if (type === 'update') {
+          if (data.data.modifiedCount) {
+            ToastMessage('success', 'UPDATED');
+            onClose();
+            queryClient.invalidateQueries();
+          }
+        }
+      },
+      onError: (error) => {
+        ToastMessage('error', error as string);
+      },
     }
+  );
+
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const dataToSend = { ...inputs, email: user?.email as string };
+    mutation.mutateAsync(dataToSend);
+    e.preventDefault();
   };
   return (
     <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles}>
       <CloseButton onClose={onClose} />
-      <div className="w-full p-10">
+      <form className="w-full p-10">
         <TitleInput inputs={inputs} setInputs={setInputs} required={true} />
         <div className="mt-5">
           <Title text="Select a tag" />
-          <NoteSelect />
+          <NoteSelect inputs={inputs} setInputs={setInputs} />
         </div>
         <div className="mt-5 w-full">
           <Title text="Your note" />
-          <MyEditor editorRef={editorRef} />
+          <MyEditor editorRef={editorRef} inputs={inputs} setInputs={setInputs} />
         </div>
-      </div>
-      <PopupFooter log={log} onClose={onClose} />
+        <PopupFooter submitHandler={handleSubmit} onClose={onClose} />
+      </form>
     </Modal>
   );
 };

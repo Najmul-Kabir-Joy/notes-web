@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import _ from 'lodash';
 const NoteTitle = ({ title }: { title: string }) => {
   return (

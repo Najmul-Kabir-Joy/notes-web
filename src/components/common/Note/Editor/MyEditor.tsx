@@ -1,13 +1,30 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 
-const MyEditor = ({ editorRef }: { editorRef: React.MutableRefObject<object> }) => {
+const MyEditor = ({
+  editorRef,
+  inputs,
+  setInputs,
+}: {
+  editorRef: React.MutableRefObject<object>;
+  inputs: {
+    title: string;
+    note: string;
+    tag: string;
+  };
+  setInputs: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      note: string;
+      tag: string;
+    }>
+  >;
+}) => {
   return (
     <Editor
       onInit={(evt, editor) => (editorRef.current = editor)}
       apiKey={'c8b5jafm1fivhdjhfhli9w9eec2wsr3ewjbnxje444imixi7'}
-      initialValue="Please enter your title"
+      initialValue={inputs.note}
       init={{
         height: 380,
         menubar: false,
@@ -38,6 +55,9 @@ const MyEditor = ({ editorRef }: { editorRef: React.MutableRefObject<object> }) 
           'removeformat',
         content_style:
           'div { font-family:Helvetica,Arial,sans-serif; font-size:14px,border: 5px solid red; padding: 3px;}',
+      }}
+      onChange={(evt) => {
+        setInputs({ ...inputs, note: evt.target.getContent() });
       }}
     />
   );

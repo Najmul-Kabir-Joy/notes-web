@@ -12,3 +12,15 @@ export interface NoteInterface {
     note: string;
   };
 }
+
+export interface NotesData {
+  _id: string;
+  tag: string;
+  title: string;
+  note: string;
+  email: string;
+  editHistory: Date[];
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+}

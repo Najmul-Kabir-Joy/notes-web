@@ -1,13 +1,15 @@
 import SearchIcon from '@/assets/icons/SearchIcon';
-import React, { useState } from 'react';
+import React from 'react';
 import SearchField from './SearchField';
 import Sorter from './Sorter';
 
-const SearchBar = () => {
-  const [searchKey, setSearchKey] = useState('');
-  const [sortKey, setSortKey] = useState('all');
-
-  console.log(searchKey, sortKey);
+const SearchBar = ({
+  setSearchKey,
+  setSortKey,
+}: {
+  setSearchKey: React.Dispatch<React.SetStateAction<string>>;
+  setSortKey: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   return (
     <div className="w-full px-4 py-2 flex justify-center items-center">
       <div className="relative mt-1 rounded-md shadow-sm lg:w-1/3 sm:w-full">

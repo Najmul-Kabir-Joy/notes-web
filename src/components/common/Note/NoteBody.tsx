@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 import DOMPurify from 'isomorphic-dompurify';

@@ -20,3 +20,9 @@ export const tagColorSet: TagColorSet = {
     ribbon: '#4ade80',
   },
 };
+
+export const emptyNoteInput = {
+  title: '',
+  note: 'Please enter your title',
+  tag: 'casual',
+};

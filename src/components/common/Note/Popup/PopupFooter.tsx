@@ -1,6 +1,12 @@
 import React from 'react';
 
-const PopupFooter = ({ log, onClose }: { log: () => void; onClose: () => void }) => {
+const PopupFooter = ({
+  submitHandler,
+  onClose,
+}: {
+  submitHandler: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClose: () => void;
+}) => {
   return (
     <footer className="fixed bottom-4 right-8 flex gap-x-3">
       <button
@@ -10,7 +16,8 @@ const PopupFooter = ({ log, onClose }: { log: () => void; onClose: () => void })
         cancel
       </button>
       <button
-        onClick={log}
+        onClick={(e) => submitHandler(e)}
+        type={'submit'}
         className="bg-blue-300 hover:bg-blue-400 px-6 py-2 uppercase rounded-full text-white transition-colors duration-300"
       >
         save

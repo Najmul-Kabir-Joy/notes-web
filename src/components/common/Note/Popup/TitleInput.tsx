@@ -22,7 +22,7 @@ const TitleInput = ({ inputs, setInputs }: TitleInputType) => {
   return (
     <div>
       <Title text={'Enter a title'} />
-      <InputField inputs={inputs} setInputs={setInputs} />
+      <InputField inputs={inputs} setInputs={setInputs} required={true} />
     </div>
   );
 };

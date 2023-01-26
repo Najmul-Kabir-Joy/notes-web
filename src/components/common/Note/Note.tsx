@@ -7,27 +7,33 @@ import NotePopup from './Popup/NotePopup';
 import NoteFooter from './NoteFooter';
 import ElipsisIcon from '@/assets/icons/ElipsisIcon';
 import NoteDropDown from './NoteDropDown';
-import { NoteInterface } from '@/types/types';
 import { tagColorSet } from '@/utills/utills';
-const Note = ({ data }: NoteInterface) => {
-  const { title, tag, note } = data;
+import { NotesData } from '@/types/types';
+
+interface AppProps {
+  item: NotesData;
+}
+
+const Note = ({ item }: AppProps) => {
+  const { _id: id, tag, note, title, updatedAt } = item;
+
   const [open, setOpen] = useState(false);
   const [showDrop, setShowDrop] = useState(false);
 
   const noteRef = useRef(null);
-  const randomRotate = (element: HTMLElement | null) => {
-    if (element) {
-      const rotation = (Math.random() - 0.5) * 20;
-      element.style.transform = `rotate(${rotation}deg)`;
-      element.style.backgroundColor = tagColorSet[tag].note;
-    }
-  };
 
   useEffect(() => {
+    const randomRotate = (element: HTMLElement | null) => {
+      if (element) {
+        const rotation = (Math.random() - 0.5) * 20;
+        element.style.transform = `rotate(${rotation}deg)`;
+        element.style.backgroundColor = tagColorSet[tag].note;
+      }
+    };
     if (noteRef) {
       randomRotate(noteRef.current);
     }
-  }, [noteRef]);
+  }, [noteRef, tag]);
 
   return (
     <>
@@ -42,13 +48,19 @@ const Note = ({ data }: NoteInterface) => {
           onClick={() => setShowDrop(!showDrop)}
         >
           <ElipsisIcon />
-          {showDrop && <NoteDropDown handleEdit={() => setOpen(!open)} />}
+          {showDrop && <NoteDropDown handleEdit={() => setOpen(!open)} id={id} />}
         </span>
         <Ribbon tagName={tag} />
         <NoteBody note={note} />
-        <NoteFooter />
+        <NoteFooter lastModTime={updatedAt} />
       </div>
-      <NotePopup isOpen={open} onClose={() => setOpen(false)} />
+      <NotePopup
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        type="update"
+        item={{ title: item.title, tag: item.tag, note: item.note }}
+        id={item._id}
+      />
     </>
   );
 };
