@@ -23,17 +23,19 @@ const Note = ({ item }: AppProps) => {
   const [openHistory, setOpenHistory] = useState(false);
 
   const noteRef = useRef(null);
+  const ribbonRef = useRef(null);
 
   useEffect(() => {
-    const randomRotate = (element: HTMLElement | null) => {
-      if (element) {
+    const randomRotate = (noteElement: HTMLElement | null, ribbonElement: HTMLElement | null) => {
+      if (noteElement && ribbonElement) {
         const rotation = (Math.random() - 0.5) * 20;
-        element.style.transform = `rotate(${rotation}deg)`;
-        element.style.backgroundColor = tagColorSet[tag].note;
+        noteElement.style.transform = `rotate(${rotation}deg)`;
+        noteElement.style.backgroundColor = tagColorSet[tag].note;
+        ribbonElement.style.backgroundColor = tagColorSet[tag].ribbon;
       }
     };
-    if (noteRef) {
-      randomRotate(noteRef.current);
+    if (noteRef && ribbonRef) {
+      randomRotate(noteRef.current, ribbonRef.current);
     }
   }, [noteRef, tag]);
 
@@ -58,7 +60,7 @@ const Note = ({ item }: AppProps) => {
             />
           )}
         </span>
-        <Ribbon tagName={tag} />
+        <Ribbon tagName={tag} ribbonRef={ribbonRef} />
         <NoteBody note={note} />
         <NoteFooter lastModTime={updatedAt} />
       </div>

@@ -12,7 +12,7 @@ const Sorter = ({ setSortKey }: { setSortKey: React.Dispatch<React.SetStateActio
       >
         <option value="all">ALL</option>
         {tagOptions.map((opt: string, index: number) => (
-          <option key={index} value={opt}>
+          <option key={index} value={opt.toLowerCase()}>
             {opt.toUpperCase()}
           </option>
         ))}

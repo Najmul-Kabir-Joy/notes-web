@@ -1,19 +1,13 @@
-import { tagColorSet } from '@/utills/utills';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styles from '../../../styles/note.module.css';
 
-const Ribbon = ({ tagName }: { tagName: string }) => {
-  const ribbonRef = useRef(null);
-  const ribbonColor = (element: HTMLElement | null) => {
-    if (element) {
-      element.style.backgroundColor = tagColorSet[tagName].ribbon;
-    }
-  };
-  useEffect(() => {
-    if (ribbonRef) {
-      ribbonColor(ribbonRef.current);
-    }
-  }, [ribbonRef]);
+const Ribbon = ({
+  tagName,
+  ribbonRef,
+}: {
+  tagName: string;
+  ribbonRef: React.MutableRefObject<null>;
+}) => {
   return (
     <div className={styles.ribbon} ref={ribbonRef}>
       <span className="select-none pointer-events-none italic text-sm mb-2">{tagName}</span>
