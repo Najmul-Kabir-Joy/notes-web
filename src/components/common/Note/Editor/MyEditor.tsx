@@ -23,7 +23,7 @@ const MyEditor = ({
   return (
     <Editor
       onInit={(evt, editor) => (editorRef.current = editor)}
-      apiKey={'c8b5jafm1fivhdjhfhli9w9eec2wsr3ewjbnxje444imixi7'}
+      apiKey={process.env.EDITOR_API}
       initialValue={inputs.note}
       init={{
         height: 380,
